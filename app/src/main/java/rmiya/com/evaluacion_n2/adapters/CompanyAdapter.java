@@ -28,6 +28,8 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
     private List<Company> company;
     private View itemView;
     Company emp;
+    private ArrayList<String> mImageNames = new ArrayList<>();
+    private ArrayList<String> mImages = new ArrayList<>();
 
 
     public void setCompany(List<Company> company){
@@ -64,7 +66,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         final Company emp = company.get(position);
 
@@ -77,7 +79,8 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         holder.logoCompany.setImageResource(resId);
         holder.nameCompany.setText(emp.getName());
         holder.addresCompany.setText(emp.getAddres());
-        holder.phoneCompany.setText(Integer.toString(emp.getPhone()));
+        final String tele = String.valueOf(emp.getPhone());
+        holder.phoneCompany.setText(tele);
 
 //        holder.itemView.setOnClickListener(this);
 
@@ -88,7 +91,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
                 intent.putExtra("info", emp.getInfo());
                 intent.putExtra("link", emp.getUrl());
                 intent.putExtra("email", emp.getEmail());
-                intent.putExtra("phone", emp.getPhone());
+                intent.putExtra("phone", tele);
                 intent.putExtra("logo", emp.getLogo());
                 intent.putExtra("name", emp.getName());
                 intent.putExtra("address", emp.getAddres());

@@ -10,22 +10,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:padding="10dp"
         android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/buscar1"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
             tools:ignore="LabelFor" />
-
-        <Button
-            android:id="@+id/btn_bus"
-            android:text="Buscar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"/>
-
 
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView

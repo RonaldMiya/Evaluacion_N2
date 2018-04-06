@@ -4,11 +4,19 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rmiya.com.evaluacion_n2.R;
+import rmiya.com.evaluacion_n2.adapters.CompanyAdapter;
+import rmiya.com.evaluacion_n2.models.Company;
 
 public class DescriptionActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,12 +30,13 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
             logo    = ""
                     ;
 
+    Bundle extra;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_description);
 
-        Bundle extra = getIntent().getExtras();
+        extra = getIntent().getExtras();
         if (extra != null) {
             info    = extra.getString("info");
             name    = extra.getString("name");
@@ -35,7 +44,7 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
             phone   = extra.getString("phone");
             url     = extra.getString("link");
             email   = extra.getString("email");
-            logo    = extra.getString("info");
+            logo    = extra.getString("logo");
         }
 
         TextView text = findViewById(R.id.description);
@@ -43,9 +52,9 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
 
         TextView textView = findViewById(R.id.addres_company);
         textView.setText(addres);
-
+//
         TextView textView2 = findViewById(R.id.phone_company);
-        textView2.setText(phone);
+        textView2.setText(String.valueOf(phone));
 
         TextView textView3 = findViewById(R.id.nombre_company);
         textView3.setText(name);
@@ -53,7 +62,37 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
         TextView textView4 = findViewById(R.id.name_company);
         textView4.setText(name);
 
+        ImageView imageView = findViewById(R.id.logo_company);
 
+        switch (logo){
+            case "comp1":
+                imageView.setImageResource(R.drawable.comp1);
+                break;
+            case "comp2":
+                imageView.setImageResource(R.drawable.comp2);
+                break;
+            case "comp3":
+                imageView.setImageResource(R.drawable.comp3);
+                break;
+            case "comp4":
+                imageView.setImageResource(R.drawable.comp4);
+                break;
+            case "comp5":
+                imageView.setImageResource(R.drawable.comp5);
+                break;
+            case "comp6":
+                imageView.setImageResource(R.drawable.comp6);
+                break;
+            case "comp7":
+                imageView.setImageResource(R.drawable.comp7);
+                break;
+            case "comp8":
+                imageView.setImageResource(R.drawable.comp8);
+                break;
+            case "comp9":
+                imageView.setImageResource(R.drawable.comp9);
+                break;
+        }
 
         imageButton = findViewById(R.id.imageButton1);
         imageButton.setOnClickListener(this);
@@ -89,7 +128,7 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
                 break;
 
             case R.id.imageButton4:
-
+                redirectSHARE();
                 break;
 
             case R.id.imageButton5:
