@@ -2,57 +2,69 @@ package rmiya.com.evaluacion_n2.activities;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.Toast;
 
 import rmiya.com.evaluacion_n2.R;
-import rmiya.com.evaluacion_n2.adapters.CompanyAdapter;
-import rmiya.com.evaluacion_n2.models.Company;
 
 public class DescriptionActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton imageButton, imageButton1, imageButton2, imageButton3, imageButton4;
-    String  info    = "",
-            name    = "",
-            addres  = "",
-            phone   = "",
-            url     = "",
-            email   = "",
-            logo    = ""
-                    ;
-
+    String  info, name, address, phone, url, email, logo;
+    ImageView imageView;
     Bundle extra;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_description);
 
+        captureValues();
+
+        replaceInfo();
+
+        loadImage(logo);
+
+        imageButton = findViewById(R.id.imageButton1);
+        imageButton.setOnClickListener(this);
+        imageButton1 = findViewById(R.id.imageButton2);
+        imageButton1.setOnClickListener(this);
+        imageButton2 = findViewById(R.id.imageButton3);
+        imageButton2.setOnClickListener(this);
+        imageButton3 = findViewById(R.id.imageButton4);
+        imageButton3.setOnClickListener(this);
+        imageButton4 = findViewById(R.id.imageButton5);
+        imageButton4.setOnClickListener(this);
+
+    }
+
+    public void captureValues() {
+
         extra = getIntent().getExtras();
         if (extra != null) {
             info    = extra.getString("info");
             name    = extra.getString("name");
-            addres  = extra.getString("address");
+            address  = extra.getString("address");
             phone   = extra.getString("phone");
             url     = extra.getString("link");
             email   = extra.getString("email");
             logo    = extra.getString("logo");
         }
 
+    }
+
+    public void replaceInfo() {
+
         TextView text = findViewById(R.id.description);
         text.setText(info);
 
         TextView textView = findViewById(R.id.addres_company);
-        textView.setText(addres);
-//
+        textView.setText(address);
+
         TextView textView2 = findViewById(R.id.phone_company);
         textView2.setText(String.valueOf(phone));
 
@@ -61,10 +73,13 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
 
         TextView textView4 = findViewById(R.id.name_company);
         textView4.setText(name);
+    }
 
-        ImageView imageView = findViewById(R.id.logo_company);
+    public void loadImage(String image) {
 
-        switch (logo){
+        imageView = findViewById(R.id.logo_company);
+
+        switch (image){
             case "comp1":
                 imageView.setImageResource(R.drawable.comp1);
                 break;
@@ -93,18 +108,6 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
                 imageView.setImageResource(R.drawable.comp9);
                 break;
         }
-
-        imageButton = findViewById(R.id.imageButton1);
-        imageButton.setOnClickListener(this);
-        imageButton1 = findViewById(R.id.imageButton2);
-        imageButton1.setOnClickListener(this);
-        imageButton2 = findViewById(R.id.imageButton3);
-        imageButton2.setOnClickListener(this);
-        imageButton3 = findViewById(R.id.imageButton4);
-        imageButton3.setOnClickListener(this);
-        imageButton4 = findViewById(R.id.imageButton5);
-        imageButton4.setOnClickListener(this);
-
     }
 
     @Override
@@ -138,15 +141,20 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
 
     public  void redirectEmail(){
 
-//        Intent intent = new Intent(Intent.ACTION_SEND);
-//        startActivity(Intent.createChooser(intent, "Elija"));
-//        Intent mailClient = new Intent(Intent.ACTION_VIEW);
-//        mailClient.setClassName("com.google.android.gm", "com.google.android.gm.ConversationListActivity");
-//        startActivity(mailClient);
+        String[] TO = {email};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Tu mensaje..");
 
-
-
-
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Enviar email"));
+            finish();
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(DescriptionActivity.this,
+                    "No tienes clientes de email instalados.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public  void redirectURL(){
@@ -171,13 +179,11 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
     public void redirectSHARE() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, "El mejor blog de android http://javaheros.blogspot.pe/");
         startActivity(Intent.createChooser(intent, "Share with"));
     }
 
     public void redirectCALL () {
         String phoneNo = "phone";
-
         String dial = "tel:" + phoneNo;
         startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
     }

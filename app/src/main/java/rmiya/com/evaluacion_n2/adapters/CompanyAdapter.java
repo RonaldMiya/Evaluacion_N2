@@ -107,11 +107,11 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         return company.size();
     }
 
-
-    public void filterList(ArrayList<Company> filteredList) {
-        company = filteredList;
-        notifyDataSetChanged();
-    }
+// Busqueda
+//    public void filterList(ArrayList<Company> filteredList) {
+//        company = filteredList;
+//        notifyDataSetChanged();
+//    }
 
 
 }

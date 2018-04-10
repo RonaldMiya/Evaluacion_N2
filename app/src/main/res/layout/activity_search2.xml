@@ -7,20 +7,6 @@
     tools:context="rmiya.com.evaluacion_n2.activities.Search2Activity"
     android:orientation="vertical">
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/buscar1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            tools:ignore="LabelFor" />
-
-    </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
