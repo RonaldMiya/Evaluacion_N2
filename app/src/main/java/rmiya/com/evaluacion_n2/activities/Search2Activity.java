@@ -48,9 +48,6 @@ public class Search2Activity extends AppCompatActivity {
         companyAdapter.setCompany(listarCompanies(values));
         recyclerView.setAdapter(companyAdapter);
 
-
-
-
     }
 
 
